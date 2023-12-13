@@ -1,0 +1,13 @@
+
+server:
+  port: 8080
+
+logging:
+  level:
+    '[com.example]': debug
+
+# we have added two configuration items
+# for demonstration purposes
+# ps:
+#  dummyEndpoint: http://localhost:8080
+#  endpoint: http://localhost:8090 *

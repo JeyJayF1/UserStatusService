@@ -1,13 +1,15 @@
 
-server:
-  port: 8080
+tenantId: 285cf9b4-1306-4fc1-97a6-3d8d7ac5c7f1
 
 logging:
   level:
-    '[com.example]': debug
+    '[com.example.demo]': debug
 
-# we have added two configuration items
-# for demonstration purposes
-# ps:
-#  dummyEndpoint: http://localhost:8080
-#  endpoint: http://localhost:8090 *
+
+spring:
+  security:
+    oauth2:
+      resource-server:
+        jwt:
+          issuer-uri: "https://login.microsoftonline.com/${tenantId}/v2.0"
+          jwk-set-uri: "https://login.microsoftonline.com/${tenantId}/discovery/v2.0/keys"

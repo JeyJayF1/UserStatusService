@@ -1,4 +1,4 @@
-package com.example.security;
+package com.example.demo.security;
 
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;

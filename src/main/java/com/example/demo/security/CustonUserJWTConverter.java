@@ -1,4 +1,4 @@
-package com.example.security;
+package com.example.demo.security;
 
 import io.r2dbc.spi.ConnectionFactories;
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;

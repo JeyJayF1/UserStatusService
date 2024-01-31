@@ -1,7 +1,10 @@
 package com.example.demo.controller;
 
+import java.util.UUID;
+
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,43 +24,36 @@ public class UserStatusControllerImpl implements UserStatusController {
 	
 	final private UserStatusService service;
 	
-	@GetMapping(
-			path = "/status/online",
-			produces = MediaType.APPLICATION_JSON_VALUE
-			)
-	@Override
-	public Mono<UserStatusContainer> Online() {
-		return service.Online();
-	}
 	
 	@GetMapping(
-			path = "/status/offline",
+			path = "/status/{id}",
 			produces = MediaType.APPLICATION_JSON_VALUE
 			)
 	@Override
-	public Mono<UserStatusContainer> Offline() {
-		return service.Offline();
-	}
-	
-	@GetMapping(
-			path = "/status/check",
-			produces = MediaType.APPLICATION_JSON_VALUE
-			)
-	@Override
-	public Mono<UserStatusContainer> checkStatus() {
+	public Mono<UserStatusContainer> checkStatus(@PathVariable UUID id) {
 		
-		return service.checkStatus();
+		return service.checkStatus(id);
 	}
 	
 	
 	@PostMapping(
-			path = "/status/setOffline",
+			path = "/status/setOffline/{user}",
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE
 			)
 	@Override
-	public Mono<Object> setOffline(User user) {
+	public Mono<Object> setOffline(@PathVariable User user) {
 		return service.setOffline(user);
+	}
+	
+	@PostMapping(
+			path = "/status/setOffline/{user}",
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE
+			)
+	@Override
+	public Mono<Object> setOnline(@PathVariable User user) {
+		return service.setOnline(user);
 	}
 
 

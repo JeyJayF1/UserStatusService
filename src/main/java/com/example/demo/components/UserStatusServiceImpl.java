@@ -27,18 +27,9 @@ public class UserStatusServiceImpl implements UserStatusService {
 	private WebClient webClient;
 	
 	@Override
-	public Mono<UserStatusContainer> checkStatus() {
-		User user1 = webClient.get()//.attribute("Authorization", "Bearer" + Jwt.getTokenValue())
-				.uri("http://localhost:8080/getUser")
-				.retrieve().bodyToMono(User.class)
-				.block();
+	public Mono<UserStatusContainer> checkStatus(UUID id) {
 		
-		var r2Template = new R2dbcEntityTemplate(conn);
-		user1.setStatus(Online());
-		
-		r2Template.insert(user1);
-		
-		
+		User user1 = getUser(id);
 		return user1.getStatus();
 		}
 	
@@ -73,11 +64,38 @@ public class UserStatusServiceImpl implements UserStatusService {
 				;
 	}
 	
+	@Override
+	public Mono<Object> setOnline(User user) {
+		return repo.existsById(user.getId())
+				.flatMap( res -> {
+					if(res) {
+						user.setStatus(Online());
+						return null;
+					}
+					return userNotFound(user.getId() );
+				})
+				;
+	}
+	
 	private Mono<User> userNotFound(UUID id){
 		return Mono.error(new UserNotFoundException(
 				"User of id {" + id.toString() + "} not found" ));
 	}
 	
+	
+	public User getUser(UUID id){
+		User user1 = webClient.get()//.attribute("Authorization", "Bearer" + Jwt.getTokenValue())
+				.uri("http://localhost:8080/getUser")
+				.retrieve().bodyToMono(User.class)
+				.block();
+		
+		var r2Template = new R2dbcEntityTemplate(conn);
+		user1.setStatus(Online());
+		
+		r2Template.insert(user1);
+		
+		return user1;
+	}
 	
 
 }

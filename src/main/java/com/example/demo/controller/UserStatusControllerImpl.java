@@ -18,7 +18,6 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequiredArgsConstructor
-@Slf4j
 public class UserStatusControllerImpl implements UserStatusController {
 	
 	
@@ -55,6 +54,7 @@ public class UserStatusControllerImpl implements UserStatusController {
 	public Mono<Object> setOnline(@PathVariable User user) {
 		return service.setOnline(user);
 	}
+	
 
 
 }

@@ -47,7 +47,7 @@ public class UserStatusControllerImpl implements UserStatusController {
 	}
 	
 	@PostMapping(
-			path = "/status/setOffline/{user}",
+			path = "/status/setOnline/{user}",
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE
 			)
